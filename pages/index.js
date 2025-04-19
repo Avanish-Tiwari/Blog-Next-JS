@@ -5,18 +5,21 @@ import Layout from '../components/layout';
 import utilStyles from '../styles/utils.module.css';
 import Date from '../components/date';
 
-import { getSortedPostsData } from '../lib/posts';
+import { getSortedPostsData, getAllPostIds } from '../lib/posts';
  
 export async function getStaticProps() {
   const allPostsData = getSortedPostsData();
+  const allPostIds = getAllPostIds();
   return {
     props: {
       allPostsData,
+      allPostIds,
     },
   };
 }
 
-export default function Home({allPostsData}) {
+
+export default function Home({allPostsData,allPostIds}) {
   return (
     <Layout home> 
     <div className={styles.container}>
@@ -27,7 +30,7 @@ export default function Home({allPostsData}) {
 
       <main>
         <h1 className={styles.title}>
-          Read <Link href="/posts/first-post">this page!</Link>
+          Read <Link href={`/posts/${allPostIds[0].params.id}`}>this page!</Link>
         </h1>
 
         <p className={styles.description}>
